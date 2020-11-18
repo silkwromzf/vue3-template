@@ -1,15 +1,14 @@
 <template>
-    <div>noName</div>
+  <div>noName</div>
 </template>
 
-<script lang='ts'>
-import { defineComponent } from 'vue';
+<script lang="ts">
+import { defineComponent } from "vue";
 
 export default defineComponent({
-    name: 'NoName',
-    props: {}
-    
+  name: "NoName",
+  props: {}
 });
 </script>
 
-<style lang='less' scoped></style>
+<style lang="less" scoped></style>

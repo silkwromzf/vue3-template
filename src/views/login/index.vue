@@ -12,7 +12,9 @@ export default defineComponent({
   name: "Login",
   methods: {
     login() {
-      this.$router.push("/");
+      this.$store.dispatch("user/login").then(() => {
+        this.$router.push("/");
+      });
     }
   }
 });

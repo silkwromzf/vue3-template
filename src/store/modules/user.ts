@@ -1,30 +1,45 @@
-import { Module } from "vuex";
-import  { RState } from '../index';
-
-
+import { ModuleState } from "@/store/types";
+import { getToken, setToken, removeToken } from "@/utils/cookies";
+import { Role } from "@/store/modules/permission";
+interface User {
+  uid: string;
+  name: string;
+}
 export interface UserState {
-    id: number | null,
-    name: string | null,
+  uid: string;
+  name: string;
+  token: string | undefined;
 }
 
-const user: Module<UserState, RState> = {
-    namespaced: true,
-    state: () => {
-        return {
-            id: null,
-            name: null
-        }
+const user: ModuleState<UserState> = {
+  namespaced: true,
+  state: {
+    token: getToken(),
+    uid: "",
+    name: ""
+  },
+  mutations: {
+    SET_TOKEN(state, token: string) {
+      state.token = token;
     },
-    mutations: {
-        LOGIN(state, payload) {
-            state.id = payload.id
-        }
-    },
-    actions: {
-        login({commit}, payload: UserState) {
-            commit('LOGIN', payload)
-        }
-    },
-}
+    LOGIN(state, user: User) {
+      state.uid = user.uid;
+      state.name = user.name;
+    }
+  },
+  actions: {
+    login({ commit, dispatch }) {
+      const role = Role.teacher;
+      const token = "....";
+      setToken(token);
+      commit("SET_TOKEN", token);
 
-export default user
+      dispatch("permission/generateRoutes", role, {
+        root: true
+      });
+      // commit('LOGIN', payload);
+    }
+  }
+};
+
+export default user;

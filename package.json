@@ -8,16 +8,27 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "axios": "^0.21.0",
     "core-js": "^3.6.5",
+    "dayjs": "^1.9.6",
+    "js-cookie": "^2.2.1",
+    "lodash": "^4.17.20",
+    "nprogress": "^0.2.0",
+    "register-service-worker": "^1.7.1",
+    "vant": "^3.0.0-beta.6",
     "vue": "^3.0.0",
     "vue-router": "^4.0.0-0",
-    "vuex": "^4.0.0-0"
+    "vuex": "4.0.0-rc.1"
   },
   "devDependencies": {
+    "@types/js-cookie": "^2.2.6",
+    "@types/lodash": "^4.14.165",
+    "@types/nprogress": "^0.2.0",
     "@typescript-eslint/eslint-plugin": "^2.33.0",
     "@typescript-eslint/parser": "^2.33.0",
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-plugin-eslint": "~4.5.0",
+    "@vue/cli-plugin-pwa": "~4.5.0",
     "@vue/cli-plugin-router": "~4.5.0",
     "@vue/cli-plugin-typescript": "~4.5.0",
     "@vue/cli-plugin-vuex": "~4.5.0",
@@ -30,6 +41,7 @@
     "eslint-plugin-vue": "^7.0.0-0",
     "less": "^3.0.4",
     "less-loader": "^5.0.0",
+    "lint-staged": "^9.5.0",
     "prettier": "^1.19.1",
     "typescript": "~3.9.3"
   }

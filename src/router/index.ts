@@ -1,5 +1,7 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 import Dashboard from "@/views/dashboard/index.vue";
+import { Role } from "@/store/modules/permission";
+
 export const routes: Array<RouteRecordRaw> = [
   {
     path: "/",
@@ -41,7 +43,7 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
     path: "/school",
     name: "School",
     meta: {
-      role: ["admin", "school"]
+      // role: [Role.admin, Role.school]
     },
     component: () => import("../views/school/index.vue")
   },
@@ -49,7 +51,7 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
     path: "/teacher",
     name: "Teacher",
     meta: {
-      role: ["admin", "school", "teacher"]
+      // role: [Role.admin, Role.school, Role.teacher]
     },
     component: () => import("../views/teacher/index.vue"),
     children: [
@@ -57,7 +59,7 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
         path: "info",
         name: "TeacherInfo",
         meta: {
-          role: ["admin", "school"]
+          // role: [Role.admin, Role.school]
         },
         component: () => import("../views/teacher/info/index.vue")
       },
@@ -65,14 +67,14 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
         path: "setting",
         name: "TeacherSetting",
         meta: {
-          role: ["admin", "school", "teacher"]
+          // role: [Role.admin, "school", Role.teacher]
         },
         component: () => import("../views/teacher/setting/index.vue")
       }
     ]
   },
   {
-    path: '/:pathMatch(.*)*',
+    path: "/:pathMatch(.*)*",
     redirect: "/404"
   }
 ];

@@ -1,33 +1,27 @@
-import { Action, createStore, Module, Dispatch, Payload } from "vuex";
-import user, { UserState } from "./modules/user";
-export interface RState {
+import { createStore } from "vuex";
+import permission from "./modules/permission";
+import user from "./modules/user";
+
+export interface RootState {
   count: number;
 }
 
-enum Types {
-  increase = "INCREASE",
-}
-interface IncreasePayload extends Payload{
-  num: number;
-  type: Types.increase
-}
-let increase: Dispatch = ( payload: IncreasePayload ) => Promise.resolve();
-
-export default createStore({
+export default createStore<RootState>({
   state: {
-    count: 0,
+    count: 0
   },
   mutations: {
     INCREASE(state) {
       state.count++;
-    },
+    }
   },
   actions: {
-    increase({ commit, state }) {
+    increase({ commit }) {
       commit("INCREASE");
-    },
+    }
   },
   modules: {
     user,
-  },
+    permission
+  }
 });

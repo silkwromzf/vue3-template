@@ -20,28 +20,27 @@ export default defineComponent({
       path: "/teacher",
       name: "Teacher",
       meta: {
-        role: ["admin", "school", "teacher"],
+        role: ["admin", "school", "teacher"]
       },
-      component: () => import("../teacher/index.vue"),
+      component: () => import("../teacher/index.vue")
     });
     const noname = this.$router.addRoute({
       path: "/noName",
-      component: () => import("../noname/index.vue"),
+      component: () => import("../noname/index.vue")
     });
-    setTimeout(noname, 5000)
-    console.log(this.$store.state)
-    this.$store.dispatch('user/login', {
+    setTimeout(noname, 5000);
+    console.log(this.$store.state);
+    this.$store.dispatch("user/login", {
       id: 1,
-      name: '11'
-    })
-    console.log(this.$store.state)
-
+      name: "11"
+    });
+    console.log(this.$store.state);
   },
   methods: {
     logout() {
       this.$router.push("/login");
-    },
-  },
+    }
+  }
 });
 </script>
 
