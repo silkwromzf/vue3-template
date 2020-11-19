@@ -1,21 +1,6 @@
 import { ModuleState } from '@/store/types';
 import { RouteRecordRaw } from 'vue-router';
-import router, { routes, asyncRoutes } from '@/router';
-
-/**
- * 权限级别
- * @enum
- */
-export enum Role {
-    // 管理员
-    admin = 1,
-    // 学校
-    school,
-    // 老师
-    teacher,
-    // 学生
-    student
-}
+import router, { routes, asyncRoutes, Role } from '@/router';
 
 type RouteRecordName = string | symbol;
 

@@ -1,6 +1,7 @@
 <template>
     <div>teacher</div>
     <router-link to="/permission/teacher/setting">setting</router-link>
+    |
     <router-link to="/permission/teacher/info">info</router-link>
     <router-view></router-view>
 </template>

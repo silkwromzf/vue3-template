@@ -1,8 +1,7 @@
 import { ModuleState } from '@/store/types';
 import { getToken, setToken, removeToken } from '@/utils/cookies';
 import { User } from '@/api/user';
-import { Role } from './permission';
-import router from '@/router';
+import router, { Role } from '@/router';
 
 export interface UserState extends Partial<User> {
     token: string | undefined;

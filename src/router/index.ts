@@ -2,6 +2,10 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
 import Dashboard from '@/views/dashboard/index.vue';
 
+/**
+ * 权限级别
+ * @enum
+ */
 export enum Role {
     // 管理员
     admin = 1,
@@ -96,9 +100,5 @@ const router = createRouter({
     history: createWebHistory(process.env.BASE_URL),
     routes
 });
-router.beforeEach((to, from, next) => {
-    console.log('to', to);
-    console.log('from', from);
-    next();
-});
+
 export default router;
