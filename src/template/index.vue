@@ -1,12 +1,12 @@
 <template>
-    <div>components</div>
+    <div>template</div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
 
 export default defineComponent({
-    name: 'Components',
+    name: 'Template',
     props: {}
 });
 </script>

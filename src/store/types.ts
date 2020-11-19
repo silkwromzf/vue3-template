@@ -1,4 +1,4 @@
-import { Module } from "vuex";
-import { RootState } from ".";
+import { Module } from 'vuex';
+import { RootState } from '.';
 
 export type ModuleState<T> = Module<T, RootState>;

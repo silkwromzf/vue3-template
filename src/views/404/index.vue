@@ -1,13 +1,13 @@
 <template>
-  <div>404</div>
+    <div>404</div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent } from 'vue';
 
 export default defineComponent({
-  name: "NotFind",
-  props: {}
+    name: 'NotFound',
+    props: {}
 });
 </script>
 

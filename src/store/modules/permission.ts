@@ -1,20 +1,20 @@
-import { ModuleState } from "@/store/types";
-import { RouteRecordRaw } from "vue-router";
-import router, { routes, asyncRoutes } from "@/router";
-import { cloneDeep } from "lodash";
+import { ModuleState } from '@/store/types';
+import { RouteRecordRaw } from 'vue-router';
+import router, { routes, asyncRoutes } from '@/router';
+
 /**
  * 权限级别
  * @enum
  */
 export enum Role {
-  // 管理员
-  admin,
-  // 学校
-  school,
-  // 老师
-  teacher,
-  // 学生
-  student
+    // 管理员
+    admin = 1,
+    // 学校
+    school,
+    // 老师
+    teacher,
+    // 学生
+    student
 }
 
 type RouteRecordName = string | symbol;
@@ -25,9 +25,9 @@ type RouteRecordName = string | symbol;
  * @param { RouteRecordName | undefined } parentName
  */
 function addRoute(route: RouteRecordRaw, parentName?: RouteRecordName) {
-  const has = router.hasRoute(route.name as RouteRecordName);
-  if (has) return;
-  parentName ? router.addRoute(parentName, route) : router.addRoute(route);
+    const has = router.hasRoute(route.name as RouteRecordName);
+    if (has) return;
+    parentName ? router.addRoute(parentName, route) : router.addRoute(route);
 }
 
 /**
@@ -38,58 +38,56 @@ function addRoute(route: RouteRecordRaw, parentName?: RouteRecordName) {
  * @returns { Array<RouteRecordRaw> }
  */
 function addRoutes(
-  asyncRoutes: Array<RouteRecordRaw>,
-  role?: Role,
-  parentName?: RouteRecordName
+    asyncRoutes: Array<RouteRecordRaw>,
+    role?: Role,
+    parentName?: RouteRecordName
 ): Array<RouteRecordRaw> {
-  return asyncRoutes.map(asyncRoute => {
-    let { name } = asyncRoute;
-    // 如果未设置路由name的时候
-    name = name ? name : Symbol();
+    return asyncRoutes.map(asyncRoute => {
+        let { name } = asyncRoute;
+        // 如果未设置路由name的时候
+        name = name ? name : Symbol();
 
-    const route: RouteRecordRaw = {
-      ...asyncRoute,
-      name
-    };
+        const route: RouteRecordRaw = {
+            ...asyncRoute,
+            name
+        };
 
-    const { meta, children } = route;
-    // 未设置roles 默认全部可见
-    if (!meta || !meta.roles || (role && meta.roles.includes(role))) {
-      addRoute(route, parentName);
-      route.children = children && addRoutes(children, role, name);
-    } else {
-      router.removeRoute(name);
-    }
-    return route;
-  });
+        const { meta, children } = route;
+        // 未设置roles 默认全部可见
+        if (!meta || !meta.roles || (role && meta.roles.includes(role))) {
+            addRoute(route, parentName);
+            route.children = children && addRoutes(children, role, name);
+        } else {
+            router.hasRoute(name) && router.removeRoute(name);
+        }
+        return route;
+    });
 }
 
 export interface PermissionState {
-  routes: Array<RouteRecordRaw>;
-  dynamicRoutes: Array<RouteRecordRaw>;
+    routes: Array<RouteRecordRaw>;
+    dynamicRoutes: Array<RouteRecordRaw>;
 }
 
 const permission: ModuleState<PermissionState> = {
-  namespaced: true,
-  state: () => {
-    return {
-      routes: routes,
-      dynamicRoutes: asyncRoutes
-    };
-  },
-  mutations: {
-    SET_DYNAMIC_ROUTES(state, dynamicRoutes: Array<RouteRecordRaw>) {
-      state.dynamicRoutes = dynamicRoutes;
+    namespaced: true,
+    state: () => {
+        return {
+            routes: routes,
+            dynamicRoutes: asyncRoutes
+        };
+    },
+    mutations: {
+        SET_DYNAMIC_ROUTES(state, dynamicRoutes: Array<RouteRecordRaw>) {
+            state.dynamicRoutes = dynamicRoutes;
+        }
+    },
+    actions: {
+        generateRoutes({ state, commit }, role?: Role) {
+            const dynamicRoutes = addRoutes(state.dynamicRoutes, role);
+            commit('SET_DYNAMIC_ROUTES', dynamicRoutes);
+        }
     }
-  },
-  actions: {
-    generateRoutes({ state, commit }, role?: Role) {
-      const dynamicRoutes = addRoutes(state.dynamicRoutes, role);
-      // !!!! bug
-      router.replace(router.currentRoute.value);
-      commit("SET_DYNAMIC_ROUTES", dynamicRoutes);
-    }
-  }
 };
 
 export default permission;

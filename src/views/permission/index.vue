@@ -1,31 +1,29 @@
 <template>
-  <div class="permission">
-    permission
-    <button v-on:click="switchRole('admin')">admin</button>
-    <button v-on:click="switchRole('school')">school</button>
-    <button v-on:click="switchRole('teacher')">teacher</button>
-  </div>
+    <div class="permission">
+        permission
+        <div>
+            <button v-on:click="switchRole(1)">admin</button>
+            <button v-on:click="switchRole(2)">school</button>
+            <button v-on:click="switchRole(3)">teacher</button>
+        </div>
+        <router-link to="/permission/teacher">teacher</router-link>
+        <router-link to="/permission/school">school</router-link>
+        <router-view></router-view>
+    </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
-import router, { routes, asyncRoutes } from "@/router";
+import { Role } from '@/store/modules/permission';
+import { defineComponent } from 'vue';
+
 export default defineComponent({
-  name: "Permission",
-  methods: {
-    switchRole(role: string) {
-      console.log("role", role);
-      console.log("routes", routes);
-      console.log("asyncRoutes", asyncRoutes);
-      const dynamicRoutes = routes.concat(asyncRoutes);
-      console.log("dynamicRoutes", dynamicRoutes);
-      router.addRoute(dynamicRoutes as any);
+    name: 'Permission',
+    methods: {
+        switchRole(role: Role) {
+            this.$store.dispatch('permission/generateRoutes', role);
+        }
     }
-  }
 });
 </script>
 
-<style lang="less" scoped>
-.permission {
-}
-</style>
+<style lang="less" scoped></style>
